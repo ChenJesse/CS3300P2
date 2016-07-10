@@ -32,7 +32,7 @@ var path3 = d3.geo.path().projection(projection3); //right projection
 
 var graphToggled = false;
 var mapColor = "#7FB800";
-var mapOceanColor = "white";
+var mapOceanColor = "#F2EDD8";
 var mapHoverColor = "#737373";
 var graphBackgroundColor = "#b3b3b3";
 var g = d3.select("#group");
@@ -96,8 +96,8 @@ function calcOpacity(d) {
 }
 
 function calcCableColor(c){
-  if(c.year < 2010) {
-    return "orange";
+  if (c.year < 2010) {
+    return "#ff6600";
   } else {
     return "purple";
   }
@@ -183,8 +183,8 @@ function generateWorldMap() {
       g.selectAll("map1")
         .data(countries)
         .enter().append("path")
-        .attr("d",path)
-        .attr("class","map1")
+        .attr("d", path)
+        .attr("class", "map1")
         .style("fill", mapColor)
         .style("stroke", "#888")
         .style("fill-opacity", function(d){
