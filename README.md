@@ -2,6 +2,6 @@
 
 ###Visualizing the effect of fiber optic cables on economies.
 
-<img src=images/screenshot2.png>
+<img width="650" height="500" src=images/screenshot2.png>
 <br><br>
-<img src=images/screenshot4.png>
+<img width="650" height="390" src=images/screenshot4.png>
