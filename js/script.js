@@ -61,12 +61,16 @@ var toolTipOffsetX = 20;
 var toolTipOffsetY = defaultOffset;
 var selectedCableClass = "";
 var k = 1; //zoom factor
+var chosenCountry = null;
 
 fetchGDPs();
 
-function resetMap(){
+function resetMap() {
   g.transition().duration(500).attr("transform", "translate(" + 0 + "," + 0 + ")");
-  d3.selectAll(".map1").style("fill", mapColor);
+  //d3.selectAll(".map1").style("fill", mapColor);
+  d3.select("#country" + chosenCountry.id)
+              .style("fill", mapColor)
+              .style("fill-opacity", calcOpacity(chosenCountry));
   d3.selectAll("circle").remove();
   d3.selectAll("polyline").style("stroke-width", 2);
   selectedCableClass = "";
@@ -155,6 +159,7 @@ function worldMapClicked(c, isSingleClick) {
     k = 1.8;
   }
 
+  //special cases
   if (c.properties.name == "France") {
     k = 7;
   } else if (c.properties.name == "United States") {
@@ -191,8 +196,13 @@ function generateWorldMap() {
         .style("fill-opacity", function(d){
           return calcOpacity(d);
         })
-        .attr("id", function(d){ return "country" + d.id; })
-        .on("click", function(d){ worldMapClicked(d) })
+        .attr("id", function(d) { return "country" + d.id; })
+        .on("click", function(d) { 
+          console.log("clicked");
+          d3.select("#country" + d.id).style("fill", mapHoverColor); 
+          worldMapClicked(d);
+          chosenCountry = d;
+        })
         .on("mouseover", function(d) {
           d3.select("#country" + d.id)
             .style("fill", mapHoverColor)
@@ -208,11 +218,13 @@ function generateWorldMap() {
         })
         .on("mouseout", function(d) {
             clearInterval(toolTip);
-            d3.select("#country" + d.id)
-            .style("fill", mapColor)
-            .style("fill-opacity", function(d){
-              return calcOpacity(d);
-            });
+            if (!graphToggled || d != chosenCountry) {
+              d3.select("#country" + d.id)
+              .style("fill", mapColor)
+              .style("fill-opacity", function(d){
+                return calcOpacity(d);
+              });
+            }
             var popup = d3.select("#popup");
             popup.selectAll("*").remove();
             d3.select("#popup").style("display", "none");

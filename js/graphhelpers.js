@@ -117,14 +117,14 @@ function generateCountryGraph(countryName) {
           yearToCableNames[key].forEach(function(d) {
             popup.append("p").text(d).attr("class", "cable-name");
           })
-          d3.select(this).style("stroke-opacity", 1);
+          d3.select(this).style("stroke-opacity", 1).style("stroke-width", 10);
         })
         .on("mousemove", function() {
           trackMouseMovements();
         })
         .on("mouseout", function() {
           clearInterval(toolTip);
-          d3.select(this).style("stroke-opacity", 0.5);
+          d3.select(this).style("stroke-opacity", 0.5).style("stroke-width", 3);
           var popup = d3.select("#popup");
           popup.selectAll("*").remove();
           d3.select("#popup").style("display", "none");
@@ -230,7 +230,7 @@ function generateCableGraph(cable) {
             .style("fill", "black")
             .on("mouseover", function() {
                 d3.selectAll("." + desiredCountry["Country Code"])
-                  .style("stroke-width", 5);
+                  .style("stroke-width", 10);
                 var popup = d3.select("#popup");
                 popup.style("display", "block")
                   .append("p").text(desiredCountry["Country Name"]);
@@ -242,7 +242,7 @@ function generateCableGraph(cable) {
                 clearInterval(toolTip);
                 d3.selectAll("." + desiredCountry["Country Code"])
                   .style("stroke", "black")
-                  .style("stroke-width", 1);
+                  .style("stroke-width", 3);
                 var popup = d3.select("#popup");
                 popup.selectAll("*").remove();
                 d3.select("#popup").style("display","none");
@@ -254,11 +254,11 @@ function generateCableGraph(cable) {
               .attr("x2", xScale(i + 1))
               .attr("y2", yScale(desiredCountry[nextKey]))
               .style("stroke", "black")
-              .style("stroke-width", 1)
+              .style("stroke-width", 3)
               .attr("class", desiredCountry["Country Code"])
               .on("mouseover", function() {
                 d3.selectAll("." + desiredCountry["Country Code"])
-                  .style("stroke-width", 5);
+                  .style("stroke-width", 10);
                 var popup = d3.select("#popup");
                 popup.style("display", "block")
                   .append("p").text(desiredCountry["Country Name"]);
@@ -270,7 +270,7 @@ function generateCableGraph(cable) {
                 clearInterval(toolTip);
                 d3.selectAll("." + desiredCountry["Country Code"])
                   .style("stroke", "black")
-                  .style("stroke-width", 1);
+                  .style("stroke-width", 3);
                 var popup = d3.select("#popup");
                 popup.selectAll("*").remove();
                 d3.select("#popup").style("display","none");
