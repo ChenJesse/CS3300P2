@@ -61,6 +61,7 @@ var toolTipOffsetX = 20;
 var toolTipOffsetY = defaultOffset;
 var selectedCableClass = "";
 var k = 1; //zoom factor
+var rotation = 0;
 var chosenCountry = null;
 
 fetchGDPs();
@@ -423,12 +424,12 @@ function fetchLandingPoints() {
              .attr("cx", coord2[0])
              .attr("cy", coord2[1])
              .attr("r", 3)
-             .on("mouseover",function() {
+             .on("mouseover", function() {
                 showPopupWithLatency(d.name);
               })
-             .on("mouseout",function() {
+             .on("mouseout", function() {
                 popup.selectAll("*").remove();
-                d3.select("#popup").style("display","none");
+                d3.select("#popup").style("display", "none");
              });
           });
           if (!graphToggled) {
@@ -499,8 +500,8 @@ function showPopupWithLatency(text, secondaryText, secondaryTextLabel) {
 
 function legendToggle() {
   var dropdown = document.getElementById("legend-dropdown");
-  k += 180;
-  dropdown.style.transform = "rotatex(" + k + "deg)";
+  rotation += 180;
+  dropdown.style.transform = "rotatex(" + rotation + "deg)";
   dropdown.style.transitionDuration = "0.5s"
   if (toolTipOffsetY == defaultOffset) {
     toolTipOffsetY += introHeight;
